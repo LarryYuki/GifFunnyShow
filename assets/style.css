@@ -1,5 +1,21 @@
 body {
-    background-image: url("https://wallpapercave.com/wp/LKWJrRD.png");
+    background-color: khaki;
     background-repeat: no-repeat;
-    background-size: cover;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+button {
+    color: rgb(59, 36, 192);
+    padding: 15px 18px;
+    font-size: 14px;
+    margin: 4px 2px;
+    background-color: white;
+
+}
+
+#gifSearch,
+#add-gif {
+    color: blue;
+    margin: 4px 2px;
 }
