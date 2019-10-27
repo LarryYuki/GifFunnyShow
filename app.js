@@ -1,13 +1,13 @@
 $(document).ready(function () {
 
-    var topices = ['funny animals', 'funny baby', 'funny movies'];
+    var topices = ['funny animals', 'funny baby', 'funny movies', 'funny dog', 'joker', 'funny bird', 'funny horse'];
 
     let api_key = 'CB3u9m9EcYrw3EnygcS0FX4P91gsyN8N';
     // let api_key = 'CpiVtI10MbfNYbPPYsXddJqPI4hlSssd';
     let queryUrl = 'https://api.giphy.com/v1/gifs';
     renderButtons();
 
-    $(document).on('click', '.gif', function () { //listener for dynamicaly generated elements
+    $(document).on('click', '.gif', function () {
         console.log("hello")
 
         const searchText = ($(this).attr("data-name"))
@@ -22,17 +22,15 @@ $(document).ready(function () {
             url: queryUrl
         }).then(response => {
             const data = response.data;
-            console.log("nick", data);
+            console.log(data);
 
             data.forEach(element => {
-                console.log(element.images.fixed_height.url);
-
-                $('.gifContainer').append(`<div></div><img src='${element.images.fixed_height.url}'><p>${element.rating}</p></div>`);
-
+                console.log(element.images.fixed_height_still.url);
+                $('.gifContainer').append(`<div><img class="abc" src='${element.images.fixed_height_still.url}' data-animate='${element.images.fixed_height.url}' data-still='${element.images.fixed_height_still.url}' data-state="still"><p>${element.rating}</p></div>`);
             });
 
-        })
-    })
+        });
+    });
 
     function renderButtons() {
         $("#gif-view").empty();
@@ -50,5 +48,17 @@ $(document).ready(function () {
         var topice = $("#gifSearch").val().trim();
         topices.push(topice);
         renderButtons();
+    });
+
+    $('.gifContainer').on("click", '.abc', function () {
+        var state = $(this).attr("data-state");
+        console.log(this);
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
     });
 });
